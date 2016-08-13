@@ -104,12 +104,6 @@ module Shoryuken
 
       logger.debug { "Ready: #{@ready.size}, Busy: #{@busy.size}, Active Queues: #{polling_strategy.active_queues}" }
 
-      if @ready.empty?
-        logger.debug { 'Pausing fetcher, because all processors are busy' }
-        after(1) { dispatch }
-        return
-      end
-
       queue = polling_strategy.next_queue
       if queue.nil?
         logger.debug { 'Pausing fetcher, because all queues are paused' }
